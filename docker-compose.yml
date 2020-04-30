@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes: 
       - ./:/usr/src/app
-      # - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
+    #   - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
     restart: always
     ports:
       - '443:3000'
