@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Employee = require("../models/employee");
+const nodemailer = require("nodemailer");
 
 router.get("/", (req, res) => {
   res.render("employee/addOrEdit", {
@@ -9,6 +10,45 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  const output = `
+    <p> You have a new member </p>
+    <h3>Member Detail</h3>
+    <ul>
+      <li>Full name: ${req.body.fullName}</li>
+      <li>Email:    ${req.body.email}</li>
+      <li>Mobile:   ${req.body.mobile}</li>
+      <li>City:     ${req.body.city}</li>
+    </ul>
+
+  `;
+  //create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: "a643d5c339047c", // generated ethereal user
+      pass: "224bcbe8784162", // generated ethereal password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: '"Nodemailer Contact" <sakdipat.2542@mail.kmutt.ac.th>', // sender address
+    to: "sakdipat3536@gmail.com", // list of receivers
+    subject: "Node Memeber", // Subject line
+    text: "Hello world?", // plain text body
+    html: output, // html body
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+  });
+
   if (req.body._id == "") InsertRecord(req, res);
   else updateRecord(req, res);
 });

@@ -1,7 +1,6 @@
 require('./models/db');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const nodemailer = require('nodemailer');
 const employeeController = require('./controllers/employeeController');
 const path = require('path');
 const Handlebars = require('handlebars')
@@ -13,11 +12,12 @@ var app = express();
 app.set('views', path.join(__dirname, '/views/'));
 app.engine('hbs', exphbs({extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/',handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'hbs');
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(bodyParser.json());
+app.use('/', employeeController);
 app.use('/employee', employeeController);
-
 
 
 
