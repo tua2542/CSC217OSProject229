@@ -109,7 +109,7 @@ router.get("/list", (req, res) => {
 function handleValidationError(err, body) {
   for (field in err.errors) {
     switch ((err, errors[field].path)) {
-      case "fullname":
+      case "fullName":
         body["fullNameError"] = err.errors[field].message;
         break;
       case "email":

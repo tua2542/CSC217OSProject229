@@ -6,6 +6,7 @@ const path = require('path');
 const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const PORT = process.env.PORT;
 
 var app = express();
 
@@ -22,7 +23,7 @@ app.use('/employee', employeeController);
 
 
 
-app.listen(3000, () => console.log('Server running...'));
+app.listen(PORT, () => console.log('Server running...'));
 
 
 
